@@ -22,10 +22,10 @@ jobs:
 
     - name: Check if python 3.9 is installed
       run: |
-          if command -v python3.9 >/dev/null 2>&1; then
-            echo "Python 3.9 is installed"
+          if command -v python3.10 >/dev/null 2>&1; then
+            echo "Python 3.10 is installed"
           else
-            echo "Python 3.9 is not installed"
+            echo "Python 3.10 is not installed"
           fi
       
     - name: Install PHP
