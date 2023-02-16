@@ -15,24 +15,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Check python version
-      run: python --version
-
-
-
-    - name: Check if python 3.9 is installed
+    - name: Install PHP 8.1 if not installed
       run: |
-          if command -v python3.10 >/dev/null 2>&1; then
-            echo "Python 3.10 is installed"
-          else
-            echo "Python 3.10 is not installed"
-          fi
-      
-    - name: Install PHP
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y php-cli php-zip unzip
-  
+        if php -v | grep -q "PHP 8.1"; then
+          echo "PHP 8.1 is installed"
+          echo "skipping PHP install"
+        else
+          echo "PHP 8.1 is not installed"
+          echo "Installing PHP 8.1"
+          sudo apt-get update
+          sudo apt-get install -y php-cli php-zip unzip
+        fi
+
 
     - name: Install Composer
       run: |
