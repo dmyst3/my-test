@@ -5,18 +5,19 @@ on:
     branches: [main] # Trigger the workflow on main branch push
   pull_request:
     branches: [main] # Trigger the workflow on main branch pull requests
-  inputs:
-    php-version: 
-      type: string
-      description: PHP Version required by php composer
-      required: true
-      default: 8.1
+  workflow_dispatch:
+    inputs:
+      php-version: 
+        type: string
+        description: PHP Version required by php composer
+        required: true
+        default: 8.1
 
-    composer-version: 
-      type: string
-      description: Composer Version required
-      required: true
-      default: 2.5.4
+      composer-version: 
+        type: string
+        description: Composer Version required
+        required: true
+        default: 2.5.4
 
 jobs:
   PHP-Composer:
