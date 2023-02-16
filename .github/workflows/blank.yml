@@ -1,22 +1,30 @@
-name: CI
+name: Install Laravel 5.8.0
 
 on:
-
   push:
-    branches: [ "main" ]
+    branches: [main] # Trigger the workflow on main branch push
   pull_request:
-    branches: [ "main" ]
-
-
-  workflow_dispatch:
+    branches: [main] # Trigger the workflow on main branch pull requests
 
 jobs:
-  Install-Python:
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Check python version
-        if: contains(python --version, "3.10")
-        run: python --version
+    - name: Checkout code
+      uses: actions/checkout@v2 # Checkout the code from the repository
+      
+    - name: Install PHP and Composer
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y php-cli php-zip unzip
+        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+        
+    - name: Install Laravel 5.8.0
+      run: |
+        composer create-project --prefer-dist laravel/laravel:^5.8.0 laravel
+        
+    - name: Test Laravel installation
+      run: |
+        cd laravel
+        php artisan --version # Check that Laravel was installed successfully
