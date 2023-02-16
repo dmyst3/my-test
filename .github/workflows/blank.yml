@@ -20,9 +20,9 @@ jobs:
         sudo apt-get install -y php-cli php-zip unzip
         curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
         
-    - name: Install Laravel 5.8.0
+    - name: Install Laravel v10.0.0
       run: |
-        composer create-project --prefer-dist laravel/laravel:^5.8.0 laravel
+        composer create-project --prefer-dist laravel/laravel:v10.0.0 laravel
         
     - name: Test Laravel installation
       run: |
