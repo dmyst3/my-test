@@ -8,7 +8,7 @@ on:
 
 jobs:
   PHP-Composer:
-    runs-on: ubuntu-latest
+    runs-on: [ php ]
     
     steps:
     - name: Checkout code
