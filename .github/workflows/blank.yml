@@ -28,3 +28,8 @@ jobs:
       run: |
         cd laravel
         php artisan --version # Check that Laravel was installed successfully
+        
+    - name: Run composer
+      run: |
+        cd laravel
+        composer install
