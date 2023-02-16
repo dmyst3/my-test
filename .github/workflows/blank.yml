@@ -8,7 +8,7 @@ on:
 
 jobs:
   PHP-Composer:
-    runs-on: php
+    runs-on: self-hosted
     
     steps:
     - name: Checkout code
