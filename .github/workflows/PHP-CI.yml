@@ -5,6 +5,18 @@ on:
     branches: [main] # Trigger the workflow on main branch push
   pull_request:
     branches: [main] # Trigger the workflow on main branch pull requests
+  inputs:
+    php-version: 
+      type: string
+      description: PHP Version required by php composer
+      required: true
+      default: 8.1
+
+    composer-version: 
+      type: string
+      description: Composer Version required
+      required: true
+      default: 2.5.4
 
 jobs:
   PHP-Composer:
@@ -15,22 +27,28 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install PHP 8.1 if not installed
+    - name: Install PHP {{ inputs.php-version }} if not installed
       run: |
-        if php -v | grep -q "PHP 8.1"; then
-          echo "PHP 8.1 is installed"
+        if php -v | grep -q "PHP ${inputs.php-version}"; then
+          echo "PHP ${inputs.php-version} is installed"
           echo "skipping PHP install"
         else
-          echo "PHP 8.1 is not installed"
-          echo "Installing PHP 8.1"
+          echo "PHP ${inputs.php-version} is not installed"
+          echo "Installing PHP ${inputs.php-version}"
           sudo apt-get update
           sudo apt-get install -y php-cli php-zip unzip
         fi
 
-
-    - name: Install Composer
+    - name: Install PHP Composer if not installed
       run: |
-        curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+        if composer -v | grep -q "Composer (version 2.5.4)"; then
+          echo "Composer 2.5.4 is installed"
+          echo "skipping Composer install"
+        else
+          echo "Composer 2.5.4 is not installed"
+          echo "Installing Composer 2.5.4"
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+        fi
         
     - name: Install Laravel v10.0.0
       run: |
